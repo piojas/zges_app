@@ -1,0 +1,18 @@
+{% extends 'pet_shop.html.twig' %}
+
+{% block title %}Dodaj{% endblock %}
+
+{% block body %}
+
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2" href="{{ path('pet_index') }}">Powrót</a>
+
+    <h1 class="text-2xl m-4">Dodaj</h1>
+
+    <hr />
+
+    {{ include('pet/_error.html.twig') }}
+
+    {{ include('pet/_form.html.twig') }}
+
+{% endblock %}
+

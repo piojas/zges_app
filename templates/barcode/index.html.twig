@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Generator Kodu Kreskowego{% endblock %}
+
+{% block body %}
+
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2 m-1" href="{{ path('app_task_index') }}">Powrót</a>
+
+    <h1 class="text-2xl my-4">Generator Kodu Kreskowego</h1>
+
+    <hr />
+
+    {{ form_start(form) }}
+        {{ form_row(form.text) }}
+        <hr />
+        {{ form_row(form.save, {'attr': {'class': 'float-left rounded bg-[#115e59] text-white px-3 py-2 mt-6 mr-3'}}) }}
+    {{ form_end(form) }}
+
+{% endblock %}

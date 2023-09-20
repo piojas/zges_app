@@ -1,0 +1,52 @@
+{% extends 'pet_shop.html.twig' %}
+
+{% block title %}Sklep zoologiczny{% endblock %}
+
+{% block body %}
+
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2" href="{{ path('app_task_index') }}">Wróć</a>
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2 mr-3" href="{{ path('pet_add') }}">Dodaj</a>
+    <h1 class="text-2xl my-4">Sklep zoologiczny</h1>
+    <hr />
+
+    {% if pets %}
+        <h2 class="text-xl my-4">Dostępne zwierzęta:</h2>
+        <ul class="grid grid-cols-6 gap-4">
+            {% for pet in pets %}
+                {% if pet.name is defined and pet.status == 'available' %}
+                    <li>
+                        <a href="{{ path('pet_edit', {id: pet.id}) }}">
+                            <img class="rounded w-16 md:w-32 lg:w-48"
+                                src="{{ pet.photoUrls|default()|first }}" 
+                                onerror="this.onerror=null;this.src='../images/w.jpg';" 
+                                alt="{{ pet.name }}"/>
+                            {{ pet.name|upper }}
+                        </a>
+                        <p>
+                            {% if pet.category is defined %}
+                                Category: 
+                                {% for key, cat in pet.category %}
+                                    {% if key == 'name' and cat|default() != 'string' %}
+                                        {{ cat|default('undefined') }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </p><p>
+                            {% if pet.tags is defined %}
+                                Tags: 
+                                {% for tag in pet.tags %}
+                                    {{ tag.name|default('-') }}
+                                {% endfor %}
+                            {% endif %}
+                        </p><p>
+                            Price: {{ random(5, 100) }} $
+                        </p>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Brak dostępnych zwierząt.</p>
+    {% endif %}   
+
+{% endblock %}

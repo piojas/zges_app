@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edytuj{% endblock %}
+
+{% block body %}
+
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2.5" href="{{ path('app_task_index') }}">Powrót</a>
+    <h1 class="text-2xl my-4">Edytuj</h1>
+    <hr />
+
+    {{ include('task/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {{ include('task/_delete_form.html.twig') }}
+{% endblock %}
+
+

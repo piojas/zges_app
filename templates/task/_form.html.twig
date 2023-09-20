@@ -1,0 +1,83 @@
+{{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.start) }}
+    {{ form_row(form.stop) }}
+
+    <h3>Tagi</h3>
+    <hr class="my-3" />
+
+    <div
+        id="form-collection"
+        data-index-value="{{ form.tags|length > 0 ? form.tags|last.vars.name + 1 : 0 }}"
+        data-prototype-value="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
+
+        <button type="button" id="add-collection-element" class="rounded bg-[#115e59] text-white px-3 py-2">Dodaj tag</button>
+        
+        <ul id="collection-container">
+            {% for tag in form.tags %}
+                <li class="flex items-center">
+                    {{ form_row(tag.name) }}
+                    <div class="mb-5">
+                        <button type="button" class="remove-field rounded bg-[#dc2626] text-white px-2 m-1">X</button>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <hr class="mb-6" />
+
+    <button class="float-left rounded bg-[#115e59] text-white px-3 py-2">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}
+
+{% block javascripts %}
+    <script>
+        tinymce.init({
+            selector: 'textarea#task_description',
+        });
+
+        $(document).ready(function() {
+            var $collectionContainer = $('#collection-container');
+            var $addCollectionElementButton = $('#add-collection-element');
+            var index = parseInt($('#form-collection').data('index-value'));
+            var prototype = $('#form-collection').data('prototype-value');
+            var deleteButton = `<div class="mb-5">
+                        <button type="button" class="remove-field rounded bg-[#dc2626] text-white px-2 m-1">X</button>
+                    </div>`;
+
+            $addCollectionElementButton.on('click', function() {
+                var item = $('<li class="flex items-center"></li>');
+                item.html(prototype.replace(/__name__/g, index) + deleteButton);
+                $collectionContainer.append(item);
+                index++;
+            });
+
+            $collectionContainer.on('click', '.remove-field', function() {
+                $(this).closest('li').remove();
+                updateFieldIds();
+            });
+
+            function updateFieldIds() {
+                $collectionContainer.find('input[type="text"]').each(function(i, field) {
+                    var newName = field.name.replace(/__name__/g, index);
+                    var newId = field.id.replace(/__name__/g, index);
+                    $(field).attr('name', newName);
+                    $(field).attr('id', newId);
+                });
+            }
+
+            function addRemoveButton(item) {
+                var removeButton = $('<button type="button" class="remove-field">X</button>');
+                item.append(removeButton);
+            }
+        });
+
+    </script>
+{% endblock %}
+
+

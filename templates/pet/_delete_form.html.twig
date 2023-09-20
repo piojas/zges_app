@@ -1,0 +1,7 @@
+<form class="float-right mt-6" method="POST" action="{{ path('pet_delete', {'id': pet.id}) }}"
+    onsubmit="return confirm('Czy na pewno chcesz usunąć zwierzątko?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pet.id) }}">
+    <button type="submit" class="rounded bg-[#dc2626] text-white px-3 py-2">Usuń</button>
+</form>
+
+

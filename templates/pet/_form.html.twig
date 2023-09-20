@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+<div class="flex flex-row">
+  <div class="mr-3">
+    {{ form_row(form.name) }}
+  </div>
+  <div>
+    {{ form_row(form.status) }}
+  </div>
+</div>
+    <hr />
+    {{ form_row(form.save, {'attr': {'class': 'float-left rounded bg-[#115e59] text-white px-3 py-2 mt-6 mr-3'}}) }}
+    {{ form_row(form.cancel, {'attr': {'class': 'float-left rounded bg-[#115e59] text-white px-3 py-2 mt-6'}}) }}
+{{ form_end(form) }}  

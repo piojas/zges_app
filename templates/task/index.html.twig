@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zadania{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4">
+    
+    <h1 class="text-2xl m-4">Zadania</h1>
+
+    <hr />
+
+    <table class="table-auto border-collapse border border-slate-400 my-5">
+        <thead>
+            <tr>
+                <th class="border border-slate-300 p-2">Id</th>
+                <th class="border border-slate-300">Tytuł</th>
+                <th class="border border-slate-300">Start</th>
+                <th class="border border-slate-300">Stop</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td class="border border-slate-300 p-2">{{ loop.index }}</td>
+                <td class="border border-slate-300 p-2">
+                    <a href="{{ path('app_task_show', {'id': task.id, 'nr': loop.index}) }}">
+                        {{ task.title }}
+                    </a>
+                </td>
+                <td class="border border-slate-300 p-2">{{ task.start ? task.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="border border-slate-300 p-2">{{ task.stop ? task.stop|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td class="border border-slate-300" colspan="8">Brak zadań</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <hr class="p-2" />
+
+    <a class="rounded bg-[#115e59] text-white px-3 py-2" href="{{ path('app_task_new') }}">Utwórz</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wygenerowany Kod Kreskowy{% endblock %}
+
+{% block body %}
+
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2 m-1" href="{{ path('barcode_index') }}">Powrót</a>
+
+    <h1 class="text-2xl my-4">Wygenerowany Kod Kreskowy</h1>
+
+    <hr />
+
+    <p class="my-4">Tekst: {{ barCode }}</p>
+
+    <img src="{{ asset('images/barcode.webp') }}" alt="Kod Kreskowy">
+    
+{% endblock %}

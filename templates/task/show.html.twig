@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zadanie {{ nr }}{% endblock %}
+
+{% block body %}
+
+    <a class="float-right rounded bg-[#115e59] text-white px-3 py-2 m-1" href="{{ path('app_task_index') }}">Powrót</a>
+    <h1 class="text-2xl m-4">Zadanie {{ nr }}</h1>
+
+    <hr />
+
+    <h2 class="text-xl m-4">{{ task.title }}</h2>
+
+    <div class="m-4">{{ task.description|raw }}</div>
+
+    <hr class="p-2" />
+
+    <h2 class="text-xl m-4">Rozwiązanie</h2>
+
+    <div class="m-4">
+    
+        {% if nr == 1 %}
+            Zadanie zostało zrealizowane poprzez mechanizm dodananie tagów do zadań w widoku edycji i tworzenia nowego zadania.
+        {% elseif nr == 2 %}
+            <a class="underline" href="{{ path('pet_index') }}">Sklep zoologiczny</a>
+        {% elseif nr == 3 %}
+            <a class="underline" href="{{ path('barcode_index') }}">Generator kodów kreskowych</a>
+        {% endif %}
+        
+    </div>
+
+    <hr class="p-2" />
+
+    <h2 class="text-xl m-4">Czas realizacji zadania</h2>
+
+    <div class="m-4">
+
+        {% if nr == 1 %}
+            ~ 16 godzin 
+        {% elseif nr == 2 %}
+            ~ 8 godzin
+        {% elseif nr == 3 %}
+            ~ 4 godzin
+        {% endif %}
+    
+    </div>
+
+    <hr class="p-2" />
+
+    <a class="rounded bg-[#115e59] text-white px-3 py-2 m-1" href="{{ path('app_task_edit', {'id': task.id}) }}">Edytuj</a>
+
+    {{ include('task/_delete_form.html.twig') }}
+{% endblock %}
